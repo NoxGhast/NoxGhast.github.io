@@ -54,7 +54,7 @@ initParticles(120);
 function animate(){
   ctx.clearRect(0,0,w,h);
   // faint smoky overlay
-  ctx.fillStyle = 'rgba(0,0,0,0.28)';
+  ctx.fillStyle = 'rgba(0,0,0,0.1)';
   ctx.fillRect(0,0,w,h);
 
   for(let p of particles){
