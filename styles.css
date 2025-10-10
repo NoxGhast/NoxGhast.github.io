@@ -152,3 +152,17 @@ canvas#bg{
   .character{ max-width:320px; margin:0 auto; display:block; }
   .features{ grid-template-columns:1fr; }
 }
+.video-container {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: 2rem auto;
+  aspect-ratio: 16 / 9;
+}
+
+.video-container iframe {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(0, 255, 80, 0.2);
+}
