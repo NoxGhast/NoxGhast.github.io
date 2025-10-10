@@ -24,7 +24,7 @@ class Particle{
     this.life = rand(80,240);
     this.maxLife = this.life;
     this.color = colors[Math.floor(Math.random()*colors.length)];
-    this.alpha = rand(0.06,0.22);
+    this.alpha = rand(0.18,0.35);
   }
   update(){
     this.x += this.vx + (mouse.x - w/2)*0.0003;
@@ -49,12 +49,12 @@ function initParticles(n=80){
   particles = [];
   for(let i=0;i<n;i++) particles.push(new Particle());
 }
-initParticles(120);
+initParticles(200);
 
 function animate(){
   ctx.clearRect(0,0,w,h);
   // faint smoky overlay
-  ctx.fillStyle = 'rgba(0,0,0,0.1)';
+  ctx.fillStyle = 'rgba(0,0,0,0.04)';
   ctx.fillRect(0,0,w,h);
 
   for(let p of particles){
@@ -65,7 +65,7 @@ function animate(){
   // soft green flame underlay
   const lingrad = ctx.createLinearGradient(0,h*0.6,0,h);
   lingrad.addColorStop(0,'rgba(0,0,0,0)');
-  lingrad.addColorStop(1,'rgba(0,20,0,0.55)');
+  lingrad.addColorStop(1,'rgba(0,40,0,0.25)');
   ctx.fillStyle = lingrad;
   ctx.fillRect(0,h*0.66,w,h*0.34);
 
