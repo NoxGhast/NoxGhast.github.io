@@ -1,102 +1,110 @@
-// === Nexus Ghoul: Ethereal Energy Flames Background === //
 
-// === Neon Crack Pulse Background ===
-// Nexus Ghoul special - fixed cracks, pulsing neon energy
+// === Nexus Ghoul Realistic Neon Crack Wall ===
+// Version A: realistic cracked surface + pulsing neon glow
 
-const canvas = document.getElementById('bg');
-const ctx = canvas.getContext('2d');
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d");
 
-let w = canvas.width = innerWidth;
-let h = canvas.height = innerHeight;
-window.addEventListener('resize', () => {
+let w = (canvas.width = innerWidth);
+let h = (canvas.height = innerHeight);
+
+window.addEventListener("resize", () => {
   w = canvas.width = innerWidth;
   h = canvas.height = innerHeight;
-  generateCracks();
+  drawBackground();
 });
 
-// Utility
-function rand(min, max) { return Math.random() * (max - min) + min; }
-function randInt(min, max) { return Math.floor(rand(min, max)); }
+let pulse = 0;
 
-let cracks = [];
+// Create a noise texture for the wall
+function drawNoise() {
+  const imageData = ctx.createImageData(w, h);
+  for (let i = 0; i < imageData.data.length; i += 4) {
+    const val = Math.random() * 25;
+    imageData.data[i] = val;
+    imageData.data[i + 1] = val;
+    imageData.data[i + 2] = val;
+    imageData.data[i + 3] = 255;
+  }
+  ctx.putImageData(imageData, 0, 0);
+}
 
-function generateCracks() {
-  cracks = [];
-  const count = 18; // number of main cracks
-  for (let i = 0; i < count; i++) {
-    let points = [];
-    let x = rand(0, w);
-    let y = rand(h * 0.65, h); // lower half of screen
-    let len = rand(120, 380);
-    let angle = rand(-Math.PI / 2.2, -Math.PI / 1.3); // mostly upward
-    let jaggedness = rand(8, 16);
-    let segs = Math.floor(len / 10);
+// Generate cracks with glow
+function drawCracks() {
+  pulse += 0.04;
+  const glowIntensity = 0.4 + Math.sin(pulse) * 0.2;
+
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+
+  const crackCount = 12;
+  for (let i = 0; i < crackCount; i++) {
+    let x = Math.random() * w;
+    let y = h * 0.65 + Math.random() * (h * 0.35);
+    const len = 150 + Math.random() * 250;
+    const angle = (-Math.PI / 2.2) + Math.random() * 0.6;
+    const segs = Math.floor(len / 8);
+    const path = [];
+
     for (let j = 0; j < segs; j++) {
-      x += Math.cos(angle) * 10;
-      y += Math.sin(angle) * 10;
-      angle += rand(-0.3, 0.3);
-      points.push({ x, y });
+      x += Math.cos(angle + Math.random() * 0.3 - 0.15) * 8;
+      y += Math.sin(angle + Math.random() * 0.3 - 0.15) * 8;
+      path.push({ x, y });
     }
-    cracks.push(points);
+
+    // Outer glow
+    ctx.beginPath();
+    ctx.moveTo(path[0].x, path[0].y);
+    for (const p of path) ctx.lineTo(p.x, p.y);
+    ctx.shadowBlur = 25;
+    ctx.shadowColor = "#00ff88";
+    ctx.strokeStyle = `rgba(0,255,120,${glowIntensity})`;
+    ctx.lineWidth = 5;
+    ctx.stroke();
+
+    // Core crack line
+    ctx.beginPath();
+    ctx.moveTo(path[0].x, path[0].y);
+    for (const p of path) ctx.lineTo(p.x, p.y);
+    ctx.shadowBlur = 0;
+    ctx.strokeStyle = "#00ff99";
+    ctx.lineWidth = 2;
+    ctx.stroke();
   }
 }
-generateCracks();
 
-let pulse = 0;
-function animate() {
-  ctx.clearRect(0, 0, w, h);
-
-  // dark cracked wall base
-  ctx.fillStyle = '#050505';
+// Master draw
+function drawBackground() {
+  // Base wall with slight texture
+  ctx.fillStyle = "#050505";
   ctx.fillRect(0, 0, w, h);
+  drawNoise();
+  drawCracks();
+}
 
-  // pulse for brightness
-  pulse += 0.03;
-  const glowAlpha = 0.35 + Math.sin(pulse) * 0.15;
-  const lineWidth = 1.5 + Math.sin(pulse * 1.2) * 0.6;
-
-  // draw glow layer
-  ctx.globalCompositeOperation = 'lighter';
-  for (let path of cracks) {
-    ctx.beginPath();
-    ctx.moveTo(path[0].x, path[0].y);
-    for (let p of path) ctx.lineTo(p.x, p.y);
-    ctx.strokeStyle = `rgba(0,255,120,${glowAlpha})`;
-    ctx.lineWidth = lineWidth + 2.5;
-    ctx.shadowBlur = 20;
-    ctx.shadowColor = '#00ff80';
-    ctx.stroke();
-  }
-
-  // draw sharp neon core
-  for (let path of cracks) {
-    ctx.beginPath();
-    ctx.moveTo(path[0].x, path[0].y);
-    for (let p of path) ctx.lineTo(p.x, p.y);
-    ctx.strokeStyle = '#00ff80';
-    ctx.lineWidth = lineWidth;
-    ctx.shadowBlur = 0;
-    ctx.stroke();
-  }
-
-  ctx.globalCompositeOperation = 'source-over';
+function animate() {
+  drawBackground();
   requestAnimationFrame(animate);
 }
 animate();
 
-// Subtle parallax on hero section
-const hero = document.querySelector('.hero');
+// Subtle parallax
+const hero = document.querySelector(".hero");
 if (hero) {
-  window.addEventListener('mousemove', (e) => {
+  window.addEventListener("mousemove", (e) => {
     const rx = (e.clientX - window.innerWidth / 2) / window.innerWidth;
     const ry = (e.clientY - window.innerHeight / 2) / window.innerHeight;
     hero.style.transform = `translate3d(${rx * 8}px, ${ry * 6}px, 0)`;
   });
 }
 
-// Accessibility outlines
-document.querySelectorAll('.btn').forEach((b) => {
-  b.addEventListener('focus', () => b.style.outline = '2px dashed rgba(0,255,80,0.22)');
-  b.addEventListener('blur', () => b.style.outline = 'none');
+// Button focus
+document.querySelectorAll(".btn").forEach((b) => {
+  b.addEventListener(
+    "focus",
+    () => (b.style.outline = "2px dashed rgba(0,255,80,0.22)")
+  );
+  b.addEventListener("blur", () => (b.style.outline = "none"));
 });
+
 
