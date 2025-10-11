@@ -1,97 +1,90 @@
 // === Nexus Ghoul: Ethereal Energy Flames Background === //
 
+// === Neon Crack Pulse Background ===
+// Nexus Ghoul special - fixed cracks, pulsing neon energy
+
 const canvas = document.getElementById('bg');
 const ctx = canvas.getContext('2d');
-let w = (canvas.width = innerWidth);
-let h = (canvas.height = innerHeight);
 
+let w = canvas.width = innerWidth;
+let h = canvas.height = innerHeight;
 window.addEventListener('resize', () => {
   w = canvas.width = innerWidth;
   h = canvas.height = innerHeight;
-  initFlames();
+  generateCracks();
 });
 
-const colors = [
-  'rgba(0,255,120,0.9)', // neon green
-  'rgba(50,255,100,0.75)',
-  'rgba(80,255,160,0.6)',
-  'rgba(0,200,80,0.9)'
-];
+// Utility
+function rand(min, max) { return Math.random() * (max - min) + min; }
+function randInt(min, max) { return Math.floor(rand(min, max)); }
 
-let flames = [];
+let cracks = [];
 
-function rand(min, max) {
-  return Math.random() * (max - min) + min;
-}
-
-class Flame {
-  constructor() {
-    this.reset();
-  }
-
-  reset() {
-    this.x = rand(0, w);
-    this.y = h + rand(0, 40); // start from bottom
-    this.vx = rand(-0.2, 0.2);
-    this.vy = rand(-0.6, -1.4); // slower rise
-    this.size = rand(18, 42);
-    this.alpha = rand(0.4, 1);
-    this.color = colors[Math.floor(Math.random() * colors.length)];
-    this.life = rand(120, 280);
-    this.maxLife = this.life;
-  }
-
-  update() {
-    this.x += this.vx;
-    this.y += this.vy * 0.8; // smooth rise
-    this.life--;
-    if (this.life <= 0 || this.y < h * 0.45) this.reset(); // contained at bottom
-  }
-
-  draw() {
-    const t = 1 - this.life / this.maxLife;
-    const s = this.size * (0.8 + 0.4 * Math.sin(t * Math.PI));
-
-    const g = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, s);
-    g.addColorStop(0, this.color);
-    g.addColorStop(0.4, this.color.replace('0.9', '0.4'));
-    g.addColorStop(1, 'rgba(0,0,0,0)');
-
-    ctx.globalCompositeOperation = 'lighter';
-    ctx.fillStyle = g;
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, s, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.globalCompositeOperation = 'source-over';
+function generateCracks() {
+  cracks = [];
+  const count = 18; // number of main cracks
+  for (let i = 0; i < count; i++) {
+    let points = [];
+    let x = rand(0, w);
+    let y = rand(h * 0.65, h); // lower half of screen
+    let len = rand(120, 380);
+    let angle = rand(-Math.PI / 2.2, -Math.PI / 1.3); // mostly upward
+    let jaggedness = rand(8, 16);
+    let segs = Math.floor(len / 10);
+    for (let j = 0; j < segs; j++) {
+      x += Math.cos(angle) * 10;
+      y += Math.sin(angle) * 10;
+      angle += rand(-0.3, 0.3);
+      points.push({ x, y });
+    }
+    cracks.push(points);
   }
 }
+generateCracks();
 
-function initFlames(n = 260) {
-  flames = [];
-  for (let i = 0; i < n; i++) flames.push(new Flame());
-}
-initFlames();
-
+let pulse = 0;
 function animate() {
   ctx.clearRect(0, 0, w, h);
 
-  // base dark green gradient ground glow
-  const grad = ctx.createLinearGradient(0, h * 0.65, 0, h);
-  grad.addColorStop(0, 'rgba(0,0,0,0)');
-  grad.addColorStop(1, 'rgba(0,40,0,0.5)');
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, h * 0.65, w, h * 0.35);
+  // dark cracked wall base
+  ctx.fillStyle = '#050505';
+  ctx.fillRect(0, 0, w, h);
 
-  for (let f of flames) {
-    f.update();
-    f.draw();
+  // pulse for brightness
+  pulse += 0.03;
+  const glowAlpha = 0.35 + Math.sin(pulse) * 0.15;
+  const lineWidth = 1.5 + Math.sin(pulse * 1.2) * 0.6;
+
+  // draw glow layer
+  ctx.globalCompositeOperation = 'lighter';
+  for (let path of cracks) {
+    ctx.beginPath();
+    ctx.moveTo(path[0].x, path[0].y);
+    for (let p of path) ctx.lineTo(p.x, p.y);
+    ctx.strokeStyle = `rgba(0,255,120,${glowAlpha})`;
+    ctx.lineWidth = lineWidth + 2.5;
+    ctx.shadowBlur = 20;
+    ctx.shadowColor = '#00ff80';
+    ctx.stroke();
   }
 
+  // draw sharp neon core
+  for (let path of cracks) {
+    ctx.beginPath();
+    ctx.moveTo(path[0].x, path[0].y);
+    for (let p of path) ctx.lineTo(p.x, p.y);
+    ctx.strokeStyle = '#00ff80';
+    ctx.lineWidth = lineWidth;
+    ctx.shadowBlur = 0;
+    ctx.stroke();
+  }
+
+  ctx.globalCompositeOperation = 'source-over';
   requestAnimationFrame(animate);
 }
 animate();
 
-// Parallax movement for hero
+// Subtle parallax on hero section
 const hero = document.querySelector('.hero');
 if (hero) {
   window.addEventListener('mousemove', (e) => {
@@ -101,9 +94,9 @@ if (hero) {
   });
 }
 
-// Accessibility for buttons
+// Accessibility outlines
 document.querySelectorAll('.btn').forEach((b) => {
-  b.addEventListener('focus', () => (b.style.outline = '2px dashed rgba(0,255,80,0.22)'));
-  b.addEventListener('blur', () => (b.style.outline = 'none'));
+  b.addEventListener('focus', () => b.style.outline = '2px dashed rgba(0,255,80,0.22)');
+  b.addEventListener('blur', () => b.style.outline = 'none');
 });
 
