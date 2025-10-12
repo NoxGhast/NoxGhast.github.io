@@ -244,7 +244,7 @@ canvas#bg{
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle, rgba(0,255,128,0.7) 0%, rgba(0,0,64,0) 70%);
+  background: radial-gradient(circle, rgba(0,255,128,0.7) 0%, rgba(0,255,64,0) 70%);
   mix-blend-mode: lighten;
   animation: emberFloat 7s infinite ease-in-out;
   opacity: 0.3;
