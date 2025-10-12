@@ -201,32 +201,24 @@ canvas#bg{
   animation: bgPulse 6s infinite ease-in-out;
 }
 
-/* Red Eyes Layers */
-.bg-gif.eyes {
-  position: absolute;
-  width: 40%;
-  height: auto;
-  top: 30%;
-  opacity: 0.8;
-  mix-blend-mode: screen;
-  filter: drop-shadow(0 0 25px rgba(255, 0, 0, 0.5));
-  animation: eyesPulse 4s infinite ease-in-out;
+
+.bg-gif {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  opacity: 0.9;
+  filter: brightness(1.4) saturate(1.8);
+  animation: bgPulse 8s infinite ease-in-out;
+  background-color: #000;
 }
 
-.bg-gif.eyes.left {
-  left: 2%;
+@keyframes bgPulse {
+  0%, 100% { filter: brightness(1.2) saturate(1.6); }
+  50% { filter: brightness(1.5) saturate(2.2); }
 }
-
-.bg-gif.eyes.right {
-  right: 2%;
-  transform: scaleX(-1);
-}
-
-@keyframes eyesPulse {
-  0%, 100% { opacity: 0.6; filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.4)); }
-  50% { opacity: 1; filter: drop-shadow(0 0 50px rgba(255, 0, 0, 0.8)); }
-}
-
 
 #overlay {
   position: absolute;
