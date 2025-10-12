@@ -237,6 +237,19 @@ canvas#bg{
   filter: brightness(1.1);
 }
 
+/* Mirror left and right sides for symmetry */
+.left-gif {
+  transform: scaleX(-1);
+  opacity: 0.8;
+}
+
+.center-gif {
+  opacity: 1;
+}
+
+.right-gif {
+  opacity: 0.8;
+}
 
 
 
