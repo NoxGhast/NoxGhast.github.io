@@ -231,25 +231,10 @@ canvas#bg{
 }
 
 /* --- EMBER LAYER --- */
-.ember-layer {
-  position: fixed;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 1;
-}
 
-.ember-layer::before,
-.ember-layer::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle, rgba(0,255,128,0.7) 0%, rgba(0,255,64,0) 70%);
-  mix-blend-mode: lighten;
-  animation: emberFloat 7s infinite ease-in-out;
-  opacity: 0.3;
-  filter: blur(10px);
-}
+
+
+
 
 .ember-layer::after {
   animation-delay: 3.5s;
