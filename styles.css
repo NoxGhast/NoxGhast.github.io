@@ -218,9 +218,9 @@ canvas#bg{
 .bg-container {
   position: fixed;
   inset: 0;
-  width: 300%;
+  width: 300%;              /* 3 panels wide */
+  left: -100%;              /* center the middle GIF */
   height: 100%;
-  left: -100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -235,5 +235,6 @@ canvas#bg{
   flex: 1;
   opacity: 1;
 }
+
 
 
