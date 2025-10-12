@@ -209,11 +209,12 @@ canvas#bg{
   height: 100%;
   object-fit: cover;
   z-index: 0;
-  opacity: 0.9;
-  filter: brightness(1.4) saturate(1.8);
-  animation: bgPulse 8s infinite ease-in-out;
+  opacity: 1;
+  filter: none;
+  animation: none;
   background-color: #000;
 }
+
 
 @keyframes bgPulse {
   0%, 100% { filter: brightness(1.2) saturate(1.6); }
@@ -256,16 +257,4 @@ canvas#bg{
 }
 
 @keyframes emberFloat {
-  0% {
-    transform: translateY(10%) scale(1);
-    opacity: 0.2;
-  }
-  50% {
-    transform: translateY(-10%) scale(1.4);
-    opacity: 0.45;
-  }
-  100% {
-    transform: translateY(10%) scale(1);
-    opacity: 0.2;
-  }
-}
+ 
