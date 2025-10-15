@@ -416,61 +416,48 @@ canvas#bg{
   image-rendering: auto;
 }
 
-/* PROFILE BORDER EFFECT (Square Version) */
-.profile-border {
+/* Energy swirl border for full-sized rectangular profile image */
+.profile-frame {
   position: relative;
-  width: 220px; /* adjust to match your image size */
-  height: 220px;
+  display: inline-block;
+  padding: 6px; /* space for the animated border around the image */
+  border-radius: 16px; /* match your existing image's corner style */
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 12px; /* slightly rounded corners, like your current pic */
-  background: linear-gradient(45deg, rgba(255, 0, 100, 0.4), rgba(0, 200, 255, 0.4));
-  box-shadow: 0 0 20px rgba(255, 0, 100, 0.4), 0 0 40px rgba(0, 200, 255, 0.3);
-  animation: pulseGlow 3s infinite alternate ease-in-out;
+  z-index: 0;
 }
 
-.profile-border img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 12px;
-  position: relative;
-  z-index: 2;
-}
-
-/* Subtle particle/energy swirl overlay */
-.profile-border::before {
+.profile-frame::before {
   content: "";
   position: absolute;
-  inset: -50%;
+  inset: 0;
   background: conic-gradient(
     from 0deg,
-    rgba(255, 0, 100, 0.3),
-    rgba(0, 200, 255, 0.3),
-    rgba(255, 0, 100, 0.3)
+    rgba(255, 0, 150, 0.4),
+    rgba(0, 200, 255, 0.4),
+    rgba(255, 0, 150, 0.4)
   );
-  animation: swirlMotion 6s linear infinite;
+  animation: swirlRect 8s linear infinite;
+  z-index: -1;
+  filter: blur(6px);
+  border-radius: 16px;
+  opacity: 0.6;
+}
+
+@keyframes swirlRect {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.profile-img {
+  position: relative;
   z-index: 1;
-  mix-blend-mode: screen;
-  opacity: 0.7;
-}
-
-@keyframes swirlMotion {
-  0% {
-    transform: rotate(0deg) scale(1);
-  }
-  100% {
-    transform: rotate(360deg) scale(1);
-  }
-}
-
-@keyframes pulseGlow {
-  0% {
-    box-shadow: 0 0 15px rgba(255, 0, 100, 0.3), 0 0 30px rgba(0, 200, 255, 0.2);
-  }
-  100% {
-    box-shadow: 0 0 30px rgba(255, 0, 100, 0.6), 0 0 60px rgba(0, 200, 255, 0.4);
-  }
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px; /* match existing corners */
+  border: 2px solid rgba(255, 255, 255, 0.1);
 }
