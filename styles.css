@@ -416,34 +416,37 @@ canvas#bg{
   image-rendering: auto;
 }
 
-/* Energy swirl border for full-sized rectangular profile image */
 .profile-frame {
   position: relative;
   display: inline-block;
-  padding: 6px; /* space for the animated border around the image */
-  border-radius: 16px; /* match your existing image's corner style */
+  width: 320px; /* match your original rectangular image width */
+  height: auto;
+  border-radius: 16px;
   overflow: hidden;
-  z-index: 0;
+  margin-bottom: 20px;
 }
 
 .profile-frame::before {
   content: "";
   position: absolute;
-  inset: 0;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
   background: conic-gradient(
     from 0deg,
-    rgba(255, 0, 150, 0.4),
-    rgba(0, 200, 255, 0.4),
-    rgba(255, 0, 150, 0.4)
+    rgba(255, 0, 150, 0.6),
+    rgba(0, 200, 255, 0.6),
+    rgba(255, 0, 150, 0.6)
   );
-  animation: swirlRect 8s linear infinite;
+  background-size: 200% 200%;
+  animation: borderFlow 6s linear infinite;
+  border-radius: 18px;
   z-index: -1;
-  filter: blur(6px);
-  border-radius: 16px;
-  opacity: 0.6;
+  filter: blur(8px);
 }
 
-@keyframes swirlRect {
+@keyframes borderFlow {
   0% {
     transform: rotate(0deg);
   }
@@ -453,11 +456,9 @@ canvas#bg{
 }
 
 .profile-img {
-  position: relative;
-  z-index: 1;
   display: block;
   width: 100%;
   height: auto;
-  border-radius: 12px; /* match existing corners */
+  border-radius: 12px;
   border: 2px solid rgba(255, 255, 255, 0.1);
 }
