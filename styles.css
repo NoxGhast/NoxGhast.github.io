@@ -382,3 +382,21 @@ canvas#bg{
   .gallery-desc { font-size: 0.98rem; }
 }
 
+.sprite-divider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px; /* space between GIFs */
+  padding: 20px 0;
+}
+
+.sprite-divider img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.sprite-divider img:hover {
+  transform: scale(1.15);
+}
