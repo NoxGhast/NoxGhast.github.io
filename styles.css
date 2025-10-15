@@ -307,9 +307,20 @@ canvas#bg{
 /* grid */
 .thumb-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 16px;
   align-items: stretch;
+}
+
+@media (max-width: 700px) {
+  .thumb-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 480px) {
+  .thumb-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* wrapper keeps aspect and hover scale */
