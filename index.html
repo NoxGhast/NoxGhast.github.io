@@ -56,27 +56,137 @@
     </div>
    </div>
 
-<!-- CODEC SECTION: place this UNDER your sprite-divider and BEFORE your games gallery -->
-<section id="codec" class="codec-section" aria-label="Codec conversation">
-  <div class="codec-inner">
-    <div class="codec-portrait left">
-      <img id="campbell" src="03f63eb9d8d95258-600x338.jpg" alt="Colonel Campbell portrait">
-    </div>
-
-    <div class="codec-center">
-      <!-- center image (use your uploaded center panel image) -->
-      <img class="codec-panel" src="USmnRYC.png" alt="Codec center panel">
-      <div class="codec-frequency">141.12</div>
-    </div>
-
-    <div class="codec-portrait right">
-      <img id="nexus" src="close mouth_2.png" alt="Nexus Ghoul portrait">
+<!-- === METAL GEAR SOLID CODEC SECTION === -->
+<section id="codec-scene">
+  <div class="codec-container">
+    <div class="codec-screen">
+      <div class="codec-portraits">
+        <img src="assets/campbell.jpg" alt="Campbell" class="portrait left">
+        <img src="assets/close-mouth_2.png" alt="Nexus" class="portrait right">
+      </div>
+      <div class="codec-frequency">140.85</div>
+      <div class="codec-text">
+        <p id="dialogue"></p>
+      </div>
     </div>
   </div>
+  <audio id="codec-beep" src="assets/codec-beep.mp3" preload="auto"></audio>
+</section>
 
-  <div class="codec-text" aria-live="polite" role="status">
-    <div id="dialogue-line" class="dialogue-line"></div>
-  </div>
+<style>
+#codec-scene {
+  display: flex;
+  justify-content: center;
+  margin: 40px auto;
+  max-width: 1100px;
+}
+
+.codec-container {
+  width: 100%;
+  background: linear-gradient(180deg, #003b2e 0%, #00231b 100%);
+  border: 4px solid #0fffb5;
+  box-shadow: 0 0 20px #00ffc8 inset, 0 0 20px #00ffc8;
+  border-radius: 8px;
+  padding: 20px;
+  color: #00ffae;
+  font-family: 'Courier New', monospace;
+  position: relative;
+  aspect-ratio: 16 / 9;
+}
+
+.codec-portraits {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.codec-portraits img {
+  width: 42%;
+  border: 2px solid #00ffae;
+  object-fit: cover;
+  filter: contrast(120%) brightness(110%) saturate(120%);
+}
+
+.codec-frequency {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #00ffae;
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  opacity: 0.9;
+}
+
+.codec-text {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  text-align: center;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  color: #00ffae;
+  text-shadow: 0 0 8px #00ffae;
+}
+</style>
+
+<script>
+// === CODEC SCRIPT ===
+
+// Dialogue lines
+const lines = [
+  "Campbell: Nexus, do you read me?",
+  "Nexus: Loud and clear, Campbell.",
+  "Campbell: I hear that you play a lot of video games. Lots of different kinds of video games.",
+  "Nexus: Well, if you're that curious, go on down to my YouTube channel, at nexus_ghoul.",
+  "Nexus: Feel free to check it out — all my cool and wacky games — and enjoy yourselves."
+];
+
+const dialogueEl = document.getElementById("dialogue");
+const beep = document.getElementById("codec-beep");
+
+// play codec beep once at start
+window.addEventListener("load", () => {
+  beep.play();
+  startDialogue();
+});
+
+// typing animation
+let lineIndex = 0;
+
+function startDialogue() {
+  if (lineIndex >= lines.length) {
+    // restart after a pause for looping if desired
+    setTimeout(() => {
+      lineIndex = 0;
+      startDialogue();
+    }, 8000);
+    return;
+  }
+
+  typeLine(lines[lineIndex], () => {
+    lineIndex++;
+    setTimeout(startDialogue, 1500);
+  });
+}
+
+function typeLine(text, callback) {
+  dialogueEl.textContent = "";
+  let i = 0;
+  const typing = setInterval(() => {
+    dialogueEl.textContent += text.charAt(i);
+    i++;
+    if (i === text.length) {
+      clearInterval(typing);
+      callback();
+    }
+  }, 40);
+}
+</script>
+<!-- === END CODEC SECTION === -->
+
 </section>
 
       </div>
