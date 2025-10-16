@@ -73,54 +73,7 @@
   <audio id="codec-beep" src="audio/codec-beep.mp3" preload="auto"></audio>
 </section>
 
-<script>
-const lines = [
-  "Campbell: Nexus, do you read me?",
-  "Nexus: Loud and clear, Campbell.",
-  "Campbell: I hear that you play a lot of video games. Lots of different kinds of video games.",
-  "Nexus: Well, if you're that curious, go on down to my YouTube channel, at nexus_ghoul.",
-  "Nexus: Feel free to check it out — all my cool and wacky games — and enjoy yourselves."
-];
 
-const dialogueEl = document.getElementById("dialogue");
-const beep = document.getElementById("codec-beep");
-
-window.addEventListener("load", () => {
-  beep.play();
-  startDialogue();
-});
-
-let lineIndex = 0;
-
-function startDialogue() {
-  if (lineIndex >= lines.length) {
-    setTimeout(() => {
-      lineIndex = 0;
-      startDialogue();
-    }, 8000);
-    return;
-  }
-
-  typeLine(lines[lineIndex], () => {
-    lineIndex++;
-    setTimeout(startDialogue, 1500);
-  });
-}
-
-function typeLine(text, callback) {
-  dialogueEl.textContent = "";
-  let i = 0;
-  const typing = setInterval(() => {
-    dialogueEl.textContent += text.charAt(i);
-    i++;
-    if (i === text.length) {
-      clearInterval(typing);
-      callback();
-    }
-  }, 75); // slowed down typing
-}
-</script>
-<!-- === END CODEC SECTION === -->
 
       </div>
     </header>
@@ -176,7 +129,56 @@ function typeLine(text, callback) {
       <small>Made for Nexus Ghoul • Host on GitHub Pages • Dark theme with green flames</small>
     </footer>
   </main>
+  
+<script>
+const lines = [
+  "Campbell: Nexus, do you read me?",
+  "Nexus: Loud and clear, Campbell.",
+  "Campbell: I hear that you play a lot of video games. Lots of different kinds of video games.",
+  "Nexus: Well, if you're that curious, go on down to my YouTube channel, at nexus_ghoul.",
+  "Nexus: Feel free to check it out — all my cool and wacky games — and enjoy yourselves."
+];
 
+const dialogueEl = document.getElementById("dialogue");
+const beep = document.getElementById("codec-beep");
+
+window.addEventListener("load", () => {
+  beep.play();
+  startDialogue();
+});
+
+let lineIndex = 0;
+
+function startDialogue() {
+  if (lineIndex >= lines.length) {
+    setTimeout(() => {
+      lineIndex = 0;
+      startDialogue();
+    }, 8000);
+    return;
+  }
+
+  typeLine(lines[lineIndex], () => {
+    lineIndex++;
+    setTimeout(startDialogue, 1500);
+  });
+}
+
+function typeLine(text, callback) {
+  dialogueEl.textContent = "";
+  let i = 0;
+  const typing = setInterval(() => {
+    dialogueEl.textContent += text.charAt(i);
+    i++;
+    if (i === text.length) {
+      clearInterval(typing);
+      callback();
+    }
+  }, 75); // slowed down typing
+}
+</script>
+<!-- === END CODEC SECTION === -->
+  
 <script src="main.js?v=5"></script>
 </body>
 </html>
