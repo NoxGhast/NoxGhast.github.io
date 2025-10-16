@@ -598,3 +598,66 @@ canvas#bg{
   .codec-portrait { display:none; } /* hide portraits on very small screens */
   .codec-center { max-width: 100%; }
 }
+
+<style>
+#codec-scene {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 60px auto;
+  width: 100%;
+}
+
+.codec-container {
+  position: relative;
+  width: 90%;
+  max-width: 900px;
+  aspect-ratio: 16 / 9;
+  background: url("images/USmnRYC.png") center center / cover no-repeat;
+  border: 3px solid #00ffae;
+  box-shadow: 0 0 25px #00ffae, inset 0 0 25px #00ffae;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.codec-portraits {
+  position: absolute;
+  top: 10%;
+  left: 5%;
+  right: 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.codec-portraits img {
+  width: 40%;
+  height: auto;
+  border: 2px solid #00ffae;
+  object-fit: cover;
+  filter: contrast(120%) brightness(110%) saturate(120%);
+}
+
+.codec-frequency {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.2rem;
+  color: #00ffae;
+  text-shadow: 0 0 8px #00ffae;
+}
+
+.codec-text {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 85%;
+  color: #00ffae;
+  font-family: 'Courier New', monospace;
+  font-size: 1.05rem;
+  text-align: center;
+  text-shadow: 0 0 8px #00ffae;
+}
+</style>
