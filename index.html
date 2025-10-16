@@ -61,8 +61,8 @@
   <div class="codec-container">
     <div class="codec-screen">
       <div class="codec-portraits">
-        <img src="assets/campbell.jpg" alt="Campbell" class="portrait left">
-        <img src="assets/close-mouth_2.png" alt="Nexus" class="portrait right">
+        <img src="images/campbell.jpg" alt="Campbell" class="portrait left">
+        <img src="images/close-mouth_2.png" alt="Nexus" class="portrait right">
       </div>
       <div class="codec-frequency">140.85</div>
       <div class="codec-text">
@@ -70,38 +70,43 @@
       </div>
     </div>
   </div>
-  <audio id="codec-beep" src="assets/codec-beep.mp3" preload="auto"></audio>
+  <audio id="codec-beep" src="audio/codec-beep.mp3" preload="auto"></audio>
 </section>
 
 <style>
 #codec-scene {
   display: flex;
   justify-content: center;
-  margin: 40px auto;
-  max-width: 1100px;
+  align-items: center;
+  margin: 60px auto;
+  width: 100%;
 }
 
 .codec-container {
-  width: 100%;
-  background: linear-gradient(180deg, #003b2e 0%, #00231b 100%);
-  border: 4px solid #0fffb5;
-  box-shadow: 0 0 20px #00ffc8 inset, 0 0 20px #00ffc8;
-  border-radius: 8px;
-  padding: 20px;
-  color: #00ffae;
-  font-family: 'Courier New', monospace;
   position: relative;
+  width: 90%;
+  max-width: 900px;
   aspect-ratio: 16 / 9;
+  background: url("images/USmnRYC.png") center center / cover no-repeat;
+  border: 3px solid #00ffae;
+  box-shadow: 0 0 25px #00ffae, inset 0 0 25px #00ffae;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .codec-portraits {
+  position: absolute;
+  top: 10%;
+  left: 5%;
+  right: 5%;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .codec-portraits img {
-  width: 42%;
+  width: 40%;
+  height: auto;
   border: 2px solid #00ffae;
   object-fit: cover;
   filter: contrast(120%) brightness(110%) saturate(120%);
@@ -112,30 +117,26 @@
   top: 10px;
   left: 50%;
   transform: translateX(-50%);
-  color: #00ffae;
   font-size: 1.2rem;
-  letter-spacing: 2px;
-  opacity: 0.9;
+  color: #00ffae;
+  text-shadow: 0 0 8px #00ffae;
 }
 
 .codec-text {
   position: absolute;
-  bottom: 20px;
+  bottom: 10%;
   left: 50%;
   transform: translateX(-50%);
-  width: 90%;
-  text-align: center;
-  font-size: 1.1rem;
-  letter-spacing: 1px;
+  width: 85%;
   color: #00ffae;
+  font-family: 'Courier New', monospace;
+  font-size: 1.05rem;
+  text-align: center;
   text-shadow: 0 0 8px #00ffae;
 }
 </style>
 
 <script>
-// === CODEC SCRIPT ===
-
-// Dialogue lines
 const lines = [
   "Campbell: Nexus, do you read me?",
   "Nexus: Loud and clear, Campbell.",
@@ -147,18 +148,15 @@ const lines = [
 const dialogueEl = document.getElementById("dialogue");
 const beep = document.getElementById("codec-beep");
 
-// play codec beep once at start
 window.addEventListener("load", () => {
   beep.play();
   startDialogue();
 });
 
-// typing animation
 let lineIndex = 0;
 
 function startDialogue() {
   if (lineIndex >= lines.length) {
-    // restart after a pause for looping if desired
     setTimeout(() => {
       lineIndex = 0;
       startDialogue();
@@ -182,12 +180,10 @@ function typeLine(text, callback) {
       clearInterval(typing);
       callback();
     }
-  }, 40);
+  }, 75); // slowed down typing
 }
 </script>
 <!-- === END CODEC SECTION === -->
-
-</section>
 
       </div>
     </header>
