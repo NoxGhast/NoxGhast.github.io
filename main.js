@@ -69,5 +69,132 @@ function animate() {
 drawCracks();
 animate();
 
+/* ===== codec conversation script ===== */
+(function(){
+  // Replace selectors if your IDs/names differ
+  const campbellPortrait = document.querySelector('.codec-portrait.left');
+  const nexusPortrait = document.querySelector('.codec-portrait.right');
+  const dialogueEl = document.getElementById('dialogue-line');
+
+  // Conversation sequence (speaker: 'left' = Campbell, 'right' = Nexus)
+  const sequence = [
+    { speaker: 'left',  text: "Nexus, do you read me?" },
+    { speaker: 'right', text: "Loud and clear, Campbell." },
+    { speaker: 'left',  text: "I hear that you play a lot of video games. Lots of different kinds of video games." },
+    { speaker: 'right', text: "Well, if you're that curious, go on down to my YouTube channel at nexus_ghoul. Feel free to check it out — all my cool and wacky games — and enjoy yourselves." }
+  ];
+
+  // timing controls
+  const typingSpeed = 28;     // ms per character
+  const holdAfter = 1200;     // ms to hold after finish before fade out
+  const fadeOutTime = 350;    // fade-out duration (ms)
+  const betweenLines = 220;   // time between finished fade and next start
+
+  // WebAudio beep generator (short subtle beep)
+  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  function playBeep() {
+    try {
+      const now = audioCtx.currentTime;
+      const o = audioCtx.createOscillator();
+      const g = audioCtx.createGain();
+      o.type = 'sine';
+      // chirp from 760 -> 1080Hz
+      o.frequency.setValueAtTime(760, now);
+      o.frequency.exponentialRampToValueAtTime(1080, now + 0.12);
+      g.gain.setValueAtTime(0.0001, now);
+      g.gain.exponentialRampToValueAtTime(0.08, now + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001, now + 0.18);
+      o.connect(g);
+      g.connect(audioCtx.destination);
+      o.start(now);
+      o.stop(now + 0.18);
+    } catch (e) {
+      // AudioContext may be blocked by autoplay policies; fail silently
+      // (No beep will play)
+    }
+  }
+
+  function setSpeaking(speaker) {
+    campbellPortrait.classList.remove('speaking');
+    nexusPortrait.classList.remove('speaking');
+    if (speaker === 'left') campbellPortrait.classList.add('speaking');
+    if (speaker === 'right') nexusPortrait.classList.add('speaking');
+  }
+
+  async function typeText(text) {
+    dialogueEl.style.opacity = 1;
+    dialogueEl.innerHTML = ''; // clear
+    const wrapper = document.createElement('span');
+    wrapper.className = 'dialogue-text';
+    dialogueEl.appendChild(wrapper);
+
+    // letter by letter (no typing audio)
+    for (let i = 0; i < text.length; i++) {
+      wrapper.textContent += text[i];
+      await new Promise(r => setTimeout(r, typingSpeed));
+    }
+
+    // add caret
+    const caret = document.createElement('span');
+    caret.className = 'caret';
+    wrapper.appendChild(caret);
+  }
+
+  function fadeOut() {
+    return new Promise((resolve) => {
+      dialogueEl.style.transition = `opacity ${fadeOutTime}ms ease`;
+      dialogueEl.style.opacity = 0;
+      setTimeout(() => {
+        dialogueEl.style.transition = '';
+        dialogueEl.innerHTML = '';
+        resolve();
+      }, fadeOutTime + 10);
+    });
+  }
+
+  // run the sequence in loop
+  async function runLoop() {
+    while (true) {
+      for (let i = 0; i < sequence.length; i++) {
+        const item = sequence[i];
+        setSpeaking(item.speaker);
+        // beep at start
+        playBeep();
+        // slight delay so the portrait twitch is visible before text
+        await new Promise(r => setTimeout(r, 140));
+        await typeText(item.text);
+        // hold
+        await new Promise(r => setTimeout(r, holdAfter));
+        await fadeOut();
+        setSpeaking(null);
+        await new Promise(r => setTimeout(r, betweenLines));
+      }
+      // small extra pause before looping
+      await new Promise(r => setTimeout(r, 600));
+    }
+  }
+
+  // start when user interacts or page is visible (autoplay policies)
+  let started = false;
+  function tryStart() {
+    if (started) return;
+    // resume audio context if necessary
+    if (audioCtx && audioCtx.state === 'suspended') {
+      audioCtx.resume().catch(()=>{});
+    }
+    started = true;
+    runLoop().catch(console.error);
+  }
+
+  // best-effort start: try after user first click or visibility
+  window.addEventListener('click', tryStart, { once: true });
+  window.addEventListener('keydown', tryStart, { once: true });
+  document.addEventListener('visibilitychange', ()=> {
+    if (!document.hidden) tryStart();
+  });
+
+  // also attempt a gentle delayed start (may be blocked until user interacts)
+  setTimeout(tryStart, 800);
+})();
 
 
