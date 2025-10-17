@@ -612,7 +612,7 @@ canvas#bg{
 .codec-container {
   position: relative;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1400px;
   aspect-ratio: 16 / 9;
   background: url("images/USmnRYC.png") center center / contain no-repeat;
   border: 3px solid #00ffae;
