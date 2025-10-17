@@ -600,76 +600,161 @@ canvas#bg{
 }
 
 <style>
-/* === Metal Gear Solid Codec === */
-#codec-scene {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  margin: 80px auto;
+/* === Codec UI (Metal Gear style) === */
+#codec-scene { 
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  width:100%;
+  margin: 48px auto;
+  z-index: 3;
+  pointer-events: none; /* decorative */
 }
 
 .codec-container {
+  width: 94%;
+  max-width: 1200px; /* bigger than before so it doesn't look small */
+  aspect-ratio: 16/9;
   position: relative;
-  width: 100%;
-  max-width: 1400px;
-  aspect-ratio: 16 / 9;
-  background: url("Images/USmnRYC.png") center center / contain no-repeat;
-  border: 3px solid #00ffae;
-  box-shadow: 0 0 25px #00ffae, inset 0 0 25px #00ffae;
+  margin: 0 auto;
+  background: transparent; /* no neon border; show site background behind */
   border-radius: 8px;
   overflow: hidden;
+  pointer-events: none;
 }
 
-.codec-portraits {
+/* inner grid holds left portrait, center panel, right portrait */
+.codec-inner {
   position: absolute;
-  top: 8%;
-  left: 0;
-  right: 0;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1fr minmax(420px, 720px) 1fr;
+  align-items: center;
+  justify-items: center;
+  padding: 6% 3%;
+  gap: 10px;
+}
+
+/* portraits */
+.codec-portrait {
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 8%;
-  z-index: 2;
-}
-
-.codec-portraits img {
-  width: 30%;
-  max-width: 250px;
+  max-width: 360px;
   height: auto;
-  border: 2px solid #00ffae;
-  background-color: #000;
-  box-shadow: 0 0 15px #00ffae;
-  border-radius: 4px;
+  background: rgba(0,0,0,0.45);
+  border-radius: 6px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+  pointer-events: none;
 }
 
-.codec-frequency {
-  position: absolute;
-  bottom: 12%;
-  left: 50%;
-  transform: translateX(-50%);
-  color: #00ffae;
-  font-family: "Courier New", monospace;
-  font-size: 1.6rem;
-  text-shadow: 0 0 10px #00ffae;
+/* specific tweaks so portraits sit just outside the arrows */
+.left-portrait { transform: translateX(-6%); }   /* nudge left portrait slightly outwards */
+.right-portrait { transform: translateX(6%); }   /* nudge right portrait slightly outwards */
+
+.codec-portrait img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display:block;
+  filter: contrast(1.05) brightness(0.95);
 }
 
+/* center panel uses the PNG (visual UI) */
+.codec-center {
+  width: 100%;
+  max-width: 760px;
+  position: relative;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  pointer-events: none;
+}
+
+/* codec-panel sits behind the dialogue and portraits (decorative) */
+.codec-panel {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display:block;
+  filter: none;
+  pointer-events: none;
+}
+
+/* DIALOGUE box — larger and positioned below portraits inside panel */
 .codec-text {
   position: absolute;
-  bottom: 3%;
+  bottom: 6%;
   left: 50%;
   transform: translateX(-50%);
-  width: 80%;
-  color: #00ffae;
-  font-family: "Courier New", monospace;
-  font-size: 1.1rem;
-  line-height: 1.4;
-  text-align: left;
-  text-shadow: 0 0 5px #00ffae;
-  background: rgba(0, 0, 0, 0.35);
-  padding: 12px 20px;
+  width: 86%;
+  background: rgba(0,0,0,0.62);
+  padding: 14px 18px;
   border-radius: 6px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+  color: #bfffe6;
+  font-family: "Courier New", monospace;
+  font-size: 1.06rem;
+  line-height: 1.45;
+  text-align: left;
+  pointer-events: none;
+}
+
+/* blinking caret */
+.dialogue-line .caret {
+  display:inline-block; width:10px; height:18px;
+  background: linear-gradient(180deg, #bfffe6, #70f8b4);
+  margin-left:6px; vertical-align:middle; opacity:.9;
+  animation: caretBlink 1s steps(2) infinite;
+}
+@keyframes caretBlink {0%{opacity:1}50%{opacity:0}100%{opacity:1}}
+
+/* subtle CRT / scanlines overlay for Nexus portrait ONLY */
+#nexus-portrait {
+  position: relative;
+  z-index: 2;
+  filter: brightness(1.02) saturate(1.08) contrast(1.02);
+}
+
+/* overlay pseudo element: green tint + scanlines */
+.right-portrait::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(0,255,140,0.06), rgba(0,255,140,0.02));
+  mix-blend-mode: screen;
   z-index: 3;
 }
 
-</style>
+/* subtle scanline effect */
+.right-portrait::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(0,0,0,0) 0px,
+    rgba(0,0,0,0) 2px,
+    rgba(0,0,0,0.035) 3px
+  );
+  opacity: 0.22;
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* responsive reductions */
+@media (max-width: 920px) {
+  .codec-inner { grid-template-columns: 120px 1fr 120px; padding: 4%; gap: 6px; }
+  .codec-portrait img { max-width: 120px; }
+  .codec-text { font-size: .95rem; padding: 10px 12px; bottom: 4%; width: 92%; }
+}
+@media (max-width: 560px){
+  .codec-inner { grid-template-columns: 1fr; gap: 12px; }
+  .left-portrait, .right-portrait { display:none; } /* hide portraits on very narrow screens */
+  .codec-text { position: static; transform: none; width: 100%; margin-top: 8px; }
+}
+
