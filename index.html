@@ -147,7 +147,8 @@
   </main>
   
 <script>
-const lines = [
+// Codec dialogue lines
+const codecLines = [
   "Campbell: Nexus, do you read me?",
   "Nexus: Loud and clear, Campbell.",
   "Campbell: I hear that you play a lot of video games. Lots of different kinds of video games.",
@@ -155,43 +156,47 @@ const lines = [
   "Nexus: Feel free to check it out — all my cool and wacky games — and enjoy yourselves."
 ];
 
-const dialogueEl = document.getElementById("dialogue");
-const beep = document.getElementById("codec-beep");
+const dialogueEl = document.getElementById('dialogue');
+const beep = document.getElementById('codec-beep');
 
-window.addEventListener("load", () => {
-  beep.play();
+let lineIndex = 0;
+let beepPlayed = false;
+
+window.addEventListener('load', () => {
+  // play beep once only at first load
+  if (!beepPlayed) {
+    beepPlayed = true;
+    beep.play().catch(()=>{ /* autoplay may be blocked; that's okay */ });
+  }
   startDialogue();
 });
 
-let lineIndex = 0;
-
 function startDialogue() {
-  if (lineIndex >= lines.length) {
-    setTimeout(() => {
-      lineIndex = 0;
-      startDialogue();
-    }, 8000);
+  if (lineIndex >= codecLines.length) {
+    // loop after a short pause
+    setTimeout(() => { lineIndex = 0; startDialogue(); }, 7000);
     return;
   }
-
-  typeLine(lines[lineIndex], () => {
+  typeLine(codecLines[lineIndex], () => {
     lineIndex++;
     setTimeout(startDialogue, 1500);
   });
 }
 
-function typeLine(text, callback) {
-  dialogueEl.textContent = "";
+function typeLine(text, cb) {
+  dialogueEl.textContent = '';
   let i = 0;
-  const typing = setInterval(() => {
+  const typingSpeed = 70; // ms per char (slower)
+  const t = setInterval(() => {
     dialogueEl.textContent += text.charAt(i);
     i++;
-    if (i === text.length) {
-      clearInterval(typing);
-      callback();
+    if (i >= text.length) {
+      clearInterval(t);
+      cb();
     }
-  }, 75); // slowed down typing
+  }, typingSpeed);
 }
+
 </script>
 <!-- === END CODEC SECTION === -->
    
