@@ -815,3 +815,63 @@ canvas#bg{
   text-align: center;
   text-shadow: 0 0 4px #00ff99;
 }
+
+/* === CODEC LAYOUT FIX === */
+
+#codec-scene {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 80px;
+}
+
+.codec-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: transparent; /* remove green background */
+  border: none;
+  padding: 0;
+}
+
+.codec-inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px; /* spacing between portraits and center panel */
+  max-width: 900px; /* adjust for larger codec */
+  width: 100%;
+}
+
+.codec-portrait img {
+  width: 160px;
+  height: auto;
+  image-rendering: pixelated;
+  filter: contrast(1.2) brightness(0.9) hue-rotate(90deg);
+}
+
+.codec-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.codec-panel {
+  width: 500px; /* restore the PNG to correct size */
+  height: auto;
+  display: block;
+  margin-bottom: 20px;
+  image-rendering: pixelated;
+}
+
+.codec-text {
+  text-align: center;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 12px 20px;
+  border-radius: 6px;
+  max-width: 520px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1.1rem;
+  color: #00ff80;
+  box-shadow: 0 0 12px rgba(0, 255, 128, 0.3);
+}
