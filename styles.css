@@ -758,3 +758,60 @@ canvas#bg{
   .codec-text { position: static; transform: none; width: 100%; margin-top: 8px; }
 }
 
+/* === METAL GEAR CODEC LAYOUT FIXES === */
+.codec-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 60px auto;
+  width: 100%;
+  max-width: 800px;
+  position: relative;
+  background: none;
+}
+
+.codec-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  width: 100%;
+}
+
+.codec-center {
+  position: relative;
+  text-align: center;
+}
+
+.codec-panel {
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.codec-portrait img {
+  width: 140px;
+  height: auto;
+  border-radius: 4px;
+  filter: contrast(1.2) brightness(0.9) saturate(0.8);
+}
+
+/* optional: green overlay/CRT feel for both portraits */
+.codec-portrait img {
+  mix-blend-mode: lighten;
+  opacity: 0.9;
+}
+
+.codec-text {
+  position: absolute;
+  bottom: -40px; /* moves text below the panel */
+  left: 0;
+  right: 0;
+  color: #00ff8c;
+  font-family: 'Consolas', monospace;
+  font-size: 1.1rem;
+  text-align: center;
+  text-shadow: 0 0 4px #00ff99;
+}
