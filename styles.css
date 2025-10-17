@@ -614,7 +614,7 @@ canvas#bg{
   width: 100%;
   max-width: 1400px;
   aspect-ratio: 16 / 9;
-  background: url("images/USmnRYC.png") center center / contain no-repeat;
+  background: url("Images/USmnRYC.png") center center / contain no-repeat;
   border: 3px solid #00ffae;
   box-shadow: 0 0 25px #00ffae, inset 0 0 25px #00ffae;
   border-radius: 8px;
