@@ -460,107 +460,76 @@ canvas#bg{
   border-radius: 10px;
 }
 
-/* === CODEC UI (Metal Gear Solid style) === */
+/* === METAL GEAR CODEC FIX === */
 #codec-scene {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  margin: 48px auto;
-  pointer-events: none; /* decorative only */
-  z-index: 3;
+  flex-direction: column;
+  margin-top: 60px;
+  margin-bottom: 60px;
+  text-align: center;
 }
 
 .codec-container {
-  width: 94%;
-  max-width: 1000px; /* adjust max width */
-  aspect-ratio: 16 / 9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   position: relative;
-  margin: 0 auto;
-  background: transparent;
-  border-radius: 8px;
-  overflow: visible;
 }
 
-/* Inner layout: left portrait | center panel | right portrait */
 .codec-inner {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 32px;
-  width: 100%;
-  max-width: 100%;
-  flex-wrap: wrap; /* important for small screens */
-}
-
-/* Portrait containers */
-.codec-portrait {
-  width: 160px;
-  flex: 0 0 160px;
-  height: auto;
   position: relative;
-  overflow: hidden;
-  border-radius: 6px;
-  background: rgba(0,0,0,0.45);
-  display:flex;
-  align-items:center;
-  justify-content:center;
 }
 
-/* small nudge to avoid covering UI arrows on PNG */
-.left-portrait { transform: translateX(-6%); }
-.right-portrait { transform: translateX(6%); }
+.codec-portrait {
+  width: 180px; /* smaller portrait size */
+  height: auto;
+  margin: 0 20px;
+}
 
 .codec-portrait img {
   width: 100%;
   height: auto;
-  object-fit: cover;
   display: block;
-  filter: contrast(1.05) brightness(0.95);
+  object-fit: contain;
 }
 
-/* center panel (PNG) */
-.codec-center {
-  flex: 1 1 520px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.codec-panel {
-  width: 520px;
-  max-width: 100%;
+/* Make the central PNG a bit bigger */
+.codec-center .codec-panel {
+  width: 450px; /* increase for more visual weight */
+  max-width: 90vw;
   height: auto;
   display: block;
-  image-rendering: auto;
-  margin-bottom: 12px;
+  margin: 0 auto;
 }
 
-/* Dialogue box below the panel */
+/* Dialogue box sits directly under the codec panel */
 .codec-text {
-  width: 86%;
-  max-width: 760px;
-  background: rgba(0,0,0,0.68);
-  color: #bfffe6;
-  font-family: "Courier New", monospace;
-  font-size: 1rem;
-  line-height: 1.45;
+  position: relative;
+  top: 8px; /* slightly under the codec PNG */
+  padding: 10px;
+  font-family: monospace;
+  color: #00ff66; /* classic codec green */
+  font-size: 1.1rem;
+  line-height: 1.4;
+  background: rgba(0, 0, 0, 0.6);
   border-radius: 6px;
-  padding: 12px 14px;
-  box-shadow: 0 0 12px rgba(0,255,140,0.05);
-  text-align: left;
-  pointer-events: none;
-  z-index: 4;
+  display: inline-block;
+  min-height: 1.4em;
 }
 
-/* caret style if used */
-.dialogue-line .caret {
-  display:inline-block; width:10px; height:18px;
-  background: linear-gradient(180deg,#bfffe6,#70f8b4);
-  margin-left: 6px; vertical-align: middle;
-  animation: caretBlink 1s steps(2) infinite;
+/* Prevent portraits from jumping when dialogue types */
+.dialogue-line {
+  display: inline-block;
+  min-height: 1.4em; /* reserves space for text height */
+  vertical-align: middle;
 }
+
 @keyframes caretBlink {0%{opacity:1}50%{opacity:0}100%{opacity:1}}
 
 /* small responsive tweaks */
