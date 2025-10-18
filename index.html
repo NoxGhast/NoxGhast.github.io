@@ -140,11 +140,9 @@
     </footer>
   </main>
   
-<script>
-
-   
 <script src="main.js?v=5"></script>
 
+<script>
 // === codec typing + one-time beep ===
 (function(){
   const codecLines = [
@@ -162,11 +160,10 @@
 
   function safePlayAudio(a) {
     if (!a) return;
-    a.play().catch(()=>{ /* may be blocked until user interacts */ });
+    a.play().catch(()=>{});
   }
 
   window.addEventListener('load', () => {
-    // try to play the beep once on load (may be blocked)
     if (!beepPlayed) {
       beepPlayed = true;
       safePlayAudio(beep);
@@ -174,7 +171,6 @@
     startDialogue();
   });
 
-  // also attempt on first user interaction (fix autoplay policies)
   function startOnInteraction() {
     safePlayAudio(beep);
     document.removeEventListener('click', startOnInteraction);
@@ -198,7 +194,7 @@
     if (!dialogueEl) { cb && cb(); return; }
     dialogueEl.textContent = '';
     let i = 0;
-    const typingSpeed = 60; // ms per char
+    const typingSpeed = 60;
     const t = setInterval(() => {
       dialogueEl.textContent += text.charAt(i);
       i++;
@@ -209,6 +205,7 @@
     }, typingSpeed);
   }
 })();
+</script>
 
 </body>
 </html>
