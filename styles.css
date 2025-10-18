@@ -460,95 +460,7 @@ canvas#bg{
   border-radius: 10px;
 }
 
-/* === METAL GEAR CODEC FIX === */
-#codec-scene {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin-top: 60px;
-  margin-bottom: 60px;
-  text-align: center;
-}
-
-.codec-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  position: relative;
-}
-
-.codec-inner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  min-height: 300px; /* keeps it stable */
-}
-
-
-.codec-portrait {
-  width: 180px; /* smaller portrait size */
-  height: auto;
-  margin: 0 20px;
-}
-
-.codec-portrait img {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: contain;
-}
-
-/* Make the central PNG a bit bigger */
-.codec-center .codec-panel {
-  width: 450px; /* increase for more visual weight */
-  max-width: 90vw;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-}
-
-/* Dialogue box sits directly under the codec panel */
-.codec-text {
-  position: relative;
-  top: 8px; /* slightly under the codec PNG */
-  padding: 10px;
-  font-family: monospace;
-  color: #00ff66; /* classic codec green */
-  font-size: 1.1rem;
-  line-height: 1.4;
-  background: rgba(0, 0, 0, 0.6);
-  border-radius: 6px;
-  display: inline-block;
-  min-height: 1.4em;
-}
-
-/* Prevent portraits from jumping when dialogue types */
-.dialogue-line {
-  display: inline-block;
-  min-height: 1.4em; /* reserves space for text height */
-  vertical-align: middle;
-}
-
-@keyframes caretBlink {0%{opacity:1}50%{opacity:0}100%{opacity:1}}
-
-/* small responsive tweaks */
-@media (max-width: 920px) {
-  .codec-inner { gap: 18px; }
-  .codec-portrait { width: 120px; flex:0 0 120px; }
-  .codec-panel { width: 360px; }
-  .codec-text { font-size: 0.95rem; width: 92%; }
-}
-@media (max-width: 560px) {
-  .codec-inner { flex-direction: column; gap: 12px; }
-  .left-portrait, .right-portrait { display:none; } /* hide on very small screens */
-  .codec-panel { width: 100%; max-width: 420px; }
-  .codec-text { width: 100%; text-align: center; }
-}
-
-/* === METAL GEAR CODEC OVERLAY FIX === */
+/* === METAL GEAR CODEC SECTION === */
 #codec-scene {
   display: flex;
   justify-content: center;
@@ -560,62 +472,51 @@ canvas#bg{
 }
 
 .codec-container {
-  position: relative;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  position: relative;
 }
 
-/* Keeps all codec content centered and stable */
 .codec-inner {
   position: relative;
-  width: 700px;      /* codec panel size (you can raise to 700–750px if you want it larger) */
-  max-width: 90vw;
+  width: 700px;  /* 👈 Change this to make the codec PNG bigger (e.g., 800px or 900px) */
+  max-width: 95vw;
   height: auto;
 }
 
-/* The main codec PNG (background frame) */
+/* Codec PNG image */
 .codec-panel {
   width: 100%;
   height: auto;
   display: block;
   z-index: 1;
-  position: relative;
 }
 
-/* === PORTRAIT POSITIONS (inside the codec windows) === */
+/* Portraits inside codec windows */
 .codec-portrait {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 150px;   /* adjust size to fit codec window */
+  width: 150px;   /* 👈 adjust for portrait size */
   height: 150px;
   overflow: hidden;
   border-radius: 6px;
   z-index: 2;
 }
 
-.left-portrait {
-  left: 55px;     /* adjust this to match the left window in your PNG */
-}
-
-.right-portrait {
-  right: 55px;    /* adjust this to match the right window in your PNG */
-}
+.left-portrait { left: 55px; }   /* 👈 move horizontally inside left window */
+.right-portrait { right: 55px; } /* 👈 move horizontally inside right window */
 
 .codec-portrait img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
 }
 
-/* === TEXT === */
+/* Dialogue below codec */
 .codec-text {
-  position: absolute;
-  bottom: 20px;     /* push it below the codec panel frame */
-  left: 50%;
-  transform: translateX(-50%);
+  margin-top: 20px; /* space below codec */
   width: 80%;
   text-align: center;
   font-family: monospace;
@@ -625,12 +526,5 @@ canvas#bg{
   background: rgba(0, 0, 0, 0.6);
   border-radius: 6px;
   padding: 8px 12px;
-  z-index: 3;
-}
-
-/* Prevent bouncing as text types */
-.dialogue-line {
-  display: inline-block;
-  min-height: 1.4em;
-  white-space: pre-wrap;
+  z-index: 0;
 }
