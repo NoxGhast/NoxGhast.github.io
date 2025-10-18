@@ -63,28 +63,32 @@
 <section id="codec-scene" aria-label="codec conversation">
   <div class="codec-container" role="region" aria-live="polite">
     <div class="codec-inner">
+
+      <!-- LEFT PORTRAIT -->
       <div class="codec-portrait left-portrait" aria-hidden="true">
         <img src="Images/campbell.jpg" alt="Campbell portrait">
       </div>
 
-      <div class="codec-center">
-        <img class="codec-panel" src="Images/USmnRYC.png" alt="codec UI" aria-hidden="true">
-        <div class="codec-text" aria-live="polite">
-          <p id="dialogue" class="dialogue-line"></p>
-        </div>
-      </div>
+      <!-- CODEC FRAME IMAGE -->
+      <img class="codec-panel" src="Images/USmnRYC.png" alt="codec UI" aria-hidden="true">
 
+      <!-- RIGHT PORTRAIT -->
       <div class="codec-portrait right-portrait" aria-hidden="true">
-        <!-- Use exact filename & path (case-sensitive on GitHub Pages) -->
         <img src="Images/close mouth_2.png" alt="Nexus portrait" id="nexus-portrait">
       </div>
+
     </div>
+
+    <!-- DIALOGUE BOX BELOW -->
+    <div class="codec-text" aria-live="polite">
+      <p id="dialogue" class="dialogue-line"></p>
+    </div>
+
     <audio id="codec-beep" src="Audio/codec-beep.mp3" preload="auto"></audio>
   </div>
 </section>
 
 
-    
 
 <section class="games-gallery">
   <h2 class="glow">Variety Games</h2>
