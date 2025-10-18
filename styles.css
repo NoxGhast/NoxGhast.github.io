@@ -588,8 +588,8 @@ canvas#bg{
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 160px;   /* adjust size to fit codec window */
-  height: 160px;
+  width: 200px;   /* adjust size to fit codec window */
+  height: 200px;
   overflow: hidden;
   border-radius: 6px;
   z-index: 2;
