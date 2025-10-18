@@ -141,60 +141,75 @@
   </main>
   
 <script>
-// Codec dialogue lines
-const codecLines = [
-  "Campbell: Nexus, do you read me?",
-  "Nexus: Loud and clear, Campbell.",
-  "Campbell: I hear that you play a lot of video games. Lots of different kinds of video games.",
-  "Nexus: Well, if you're that curious, go on down to my YouTube channel, at nexus_ghoul.",
-  "Nexus: Feel free to check it out — all my cool and wacky games — and enjoy yourselves."
-];
 
-const dialogueEl = document.getElementById('dialogue');
-const beep = document.getElementById('codec-beep');
-
-let lineIndex = 0;
-let beepPlayed = false;
-
-window.addEventListener('load', () => {
-  // play beep once only at first load
-  if (!beepPlayed) {
-    beepPlayed = true;
-    beep.play().catch(()=>{ /* autoplay may be blocked; that's okay */ });
-  }
-  startDialogue();
-});
-
-function startDialogue() {
-  if (lineIndex >= codecLines.length) {
-    // loop after a short pause
-    setTimeout(() => { lineIndex = 0; startDialogue(); }, 7000);
-    return;
-  }
-  typeLine(codecLines[lineIndex], () => {
-    lineIndex++;
-    setTimeout(startDialogue, 1500);
-  });
-}
-
-function typeLine(text, cb) {
-  dialogueEl.textContent = '';
-  let i = 0;
-  const typingSpeed = 70; // ms per char (slower)
-  const t = setInterval(() => {
-    dialogueEl.textContent += text.charAt(i);
-    i++;
-    if (i >= text.length) {
-      clearInterval(t);
-      cb();
-    }
-  }, typingSpeed);
-}
-
-</script>
-<!-- === END CODEC SECTION === -->
    
 <script src="main.js?v=5"></script>
+
+// === codec typing + one-time beep ===
+(function(){
+  const codecLines = [
+    "Campbell: Nexus, do you read me?",
+    "Nexus: Loud and clear, Campbell.",
+    "Campbell: I hear that you play a lot of video games. Lots of different kinds of video games.",
+    "Nexus: Well, if you're that curious, go on down to my YouTube channel, at nexus_ghoul.",
+    "Nexus: Feel free to check it out — all my cool and wacky games — and enjoy yourselves."
+  ];
+
+  const dialogueEl = document.getElementById('dialogue');
+  const beep = document.getElementById('codec-beep');
+  let lineIndex = 0;
+  let beepPlayed = false;
+
+  function safePlayAudio(a) {
+    if (!a) return;
+    a.play().catch(()=>{ /* may be blocked until user interacts */ });
+  }
+
+  window.addEventListener('load', () => {
+    // try to play the beep once on load (may be blocked)
+    if (!beepPlayed) {
+      beepPlayed = true;
+      safePlayAudio(beep);
+    }
+    startDialogue();
+  });
+
+  // also attempt on first user interaction (fix autoplay policies)
+  function startOnInteraction() {
+    safePlayAudio(beep);
+    document.removeEventListener('click', startOnInteraction);
+    document.removeEventListener('keydown', startOnInteraction);
+  }
+  document.addEventListener('click', startOnInteraction);
+  document.addEventListener('keydown', startOnInteraction);
+
+  function startDialogue() {
+    if (lineIndex >= codecLines.length) {
+      setTimeout(() => { lineIndex = 0; startDialogue(); }, 7000);
+      return;
+    }
+    typeLine(codecLines[lineIndex], () => {
+      lineIndex++;
+      setTimeout(startDialogue, 1400);
+    });
+  }
+
+  function typeLine(text, cb) {
+    if (!dialogueEl) { cb && cb(); return; }
+    dialogueEl.textContent = '';
+    let i = 0;
+    const typingSpeed = 60; // ms per char
+    const t = setInterval(() => {
+      dialogueEl.textContent += text.charAt(i);
+      i++;
+      if (i >= text.length) {
+        clearInterval(t);
+        cb && cb();
+      }
+    }, typingSpeed);
+  }
+})();
+
 </body>
 </html>
  
