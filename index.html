@@ -61,35 +61,30 @@
  </div>
     </header>
 
-<!-- === METAL GEAR SOLID STYLE CODEC SECTION (REPLACE OLD SECTION) === -->
+<!-- === METAL GEAR STYLE CODEC (centered, decorative) === -->
 <section id="codec-scene" aria-label="codec conversation">
   <div class="codec-container" role="region" aria-live="polite">
-    <!-- background PNG is applied via CSS to .codec-container -->
     <div class="codec-inner">
       <div class="codec-portrait left-portrait" aria-hidden="true">
-        <!-- Campbell: keep in /images/ as you had -->
         <img src="Images/campbell.jpg" alt="Campbell portrait">
       </div>
 
       <div class="codec-center">
-        <!-- center panel can remain mostly decorative (PNG has UI) -->
-        <img class="codec-panel" src="Images/USmnRYC.png" alt="" aria-hidden="true">
-        <div class="codec-text" aria-hidden="false" aria-live="polite">
+        <img class="codec-panel" src="Images/USmnRYC.png" alt="codec UI" aria-hidden="true">
+        <div class="codec-text" aria-live="polite">
           <p id="dialogue" class="dialogue-line"></p>
         </div>
       </div>
 
       <div class="codec-portrait right-portrait" aria-hidden="true">
-        <!-- IMPORTANT: use the exact filename that exists in your repo -->
+        <!-- Use exact filename & path (case-sensitive on GitHub Pages) -->
         <img src="Images/close mouth_2.png" alt="Nexus portrait" id="nexus-portrait">
-        <!--                         ^^^^^^^^^^^^^^^^^^^^^^^^
-                   If your file is named close-mouth_2.png use that instead.
-                   Make sure this exactly matches your file name. -->
       </div>
     </div>
     <audio id="codec-beep" src="Audio/codec-beep.mp3" preload="auto"></audio>
   </div>
 </section>
+
 
     
 
