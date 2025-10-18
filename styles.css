@@ -460,96 +460,119 @@ canvas#bg{
   border-radius: 10px;
 }
 
-/* === FINAL CODEC UI (Metal Gear Solid style) === */
-
+/* === CODEC UI (Metal Gear Solid style) === */
 #codec-scene {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin: 60px auto;
-  pointer-events: none;
+  margin: 48px auto;
+  pointer-events: none; /* decorative only */
+  z-index: 3;
 }
 
 .codec-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  width: 94%;
+  max-width: 1000px; /* adjust max width */
+  aspect-ratio: 16 / 9;
+  position: relative;
+  margin: 0 auto;
   background: transparent;
-  border: none;
-  padding: 0;
-  max-width: 900px;
-  width: 100%;
+  border-radius: 8px;
+  overflow: visible;
 }
 
+/* Inner layout: left portrait | center panel | right portrait */
 .codec-inner {
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 40px;
+  justify-content: center;
+  gap: 32px;
   width: 100%;
+  max-width: 100%;
+  flex-wrap: wrap; /* important for small screens */
 }
 
+/* Portrait containers */
 .codec-portrait {
   width: 160px;
+  flex: 0 0 160px;
   height: auto;
   position: relative;
   overflow: hidden;
   border-radius: 6px;
+  background: rgba(0,0,0,0.45);
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
+
+/* small nudge to avoid covering UI arrows on PNG */
+.left-portrait { transform: translateX(-6%); }
+.right-portrait { transform: translateX(6%); }
 
 .codec-portrait img {
   width: 100%;
   height: auto;
-  image-rendering: pixelated;
-  filter: contrast(1.15) brightness(1.05);
+  object-fit: cover;
+  display: block;
+  filter: contrast(1.05) brightness(0.95);
 }
 
-/* Optional: subtle green CRT overlay on your portrait */
-.right-portrait::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(rgba(0,255,140,0.06), rgba(0,255,140,0.03));
-  mix-blend-mode: screen;
-  pointer-events: none;
-}
-
-/* Center codec screen PNG */
+/* center panel (PNG) */
 .codec-center {
+  flex: 1 1 520px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .codec-panel {
-  width: 500px;
+  width: 520px;
+  max-width: 100%;
   height: auto;
   display: block;
-  margin-bottom: 20px;
-  image-rendering: pixelated;
+  image-rendering: auto;
+  margin-bottom: 12px;
 }
 
-/* Dialogue box below the codec image */
+/* Dialogue box below the panel */
 .codec-text {
-  text-align: center;
-  background: rgba(0, 0, 0, 0.7);
-  padding: 12px 20px;
+  width: 86%;
+  max-width: 760px;
+  background: rgba(0,0,0,0.68);
+  color: #bfffe6;
+  font-family: "Courier New", monospace;
+  font-size: 1rem;
+  line-height: 1.45;
   border-radius: 6px;
-  max-width: 520px;
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 1.1rem;
-  color: #00ff80;
-  box-shadow: 0 0 12px rgba(0, 255, 128, 0.3);
+  padding: 12px 14px;
+  box-shadow: 0 0 12px rgba(0,255,140,0.05);
+  text-align: left;
+  pointer-events: none;
+  z-index: 4;
 }
 
-/* Responsive layout */
-@media (max-width: 800px) {
-  .codec-inner {
-    flex-direction: column;
-    gap: 20px;
-  }
-  .codec-panel {
-    width: 100%;
-  }
+/* caret style if used */
+.dialogue-line .caret {
+  display:inline-block; width:10px; height:18px;
+  background: linear-gradient(180deg,#bfffe6,#70f8b4);
+  margin-left: 6px; vertical-align: middle;
+  animation: caretBlink 1s steps(2) infinite;
+}
+@keyframes caretBlink {0%{opacity:1}50%{opacity:0}100%{opacity:1}}
+
+/* small responsive tweaks */
+@media (max-width: 920px) {
+  .codec-inner { gap: 18px; }
+  .codec-portrait { width: 120px; flex:0 0 120px; }
+  .codec-panel { width: 360px; }
+  .codec-text { font-size: 0.95rem; width: 92%; }
+}
+@media (max-width: 560px) {
+  .codec-inner { flex-direction: column; gap: 12px; }
+  .left-portrait, .right-portrait { display:none; } /* hide on very small screens */
+  .codec-panel { width: 100%; max-width: 420px; }
+  .codec-text { width: 100%; text-align: center; }
 }
