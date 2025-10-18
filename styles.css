@@ -484,7 +484,9 @@ canvas#bg{
   align-items: center;
   justify-content: center;
   position: relative;
+  min-height: 300px; /* keeps it stable */
 }
+
 
 .codec-portrait {
   width: 180px; /* smaller portrait size */
