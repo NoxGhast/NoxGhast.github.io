@@ -569,7 +569,7 @@ canvas#bg{
 /* Keeps all codec content centered and stable */
 .codec-inner {
   position: relative;
-  width: 600px;      /* codec panel size (you can raise to 700–750px if you want it larger) */
+  width: 700px;      /* codec panel size (you can raise to 700–750px if you want it larger) */
   max-width: 90vw;
   height: auto;
 }
@@ -588,8 +588,8 @@ canvas#bg{
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 400px;   /* adjust size to fit codec window */
-  height: 400px;
+  width: 150px;   /* adjust size to fit codec window */
+  height: 150px;
   overflow: hidden;
   border-radius: 6px;
   z-index: 2;
