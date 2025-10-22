@@ -498,7 +498,7 @@ canvas#bg{
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 150px;   /* 👈 adjust for portrait size */
+  width: 130px;   /* 👈 adjust for portrait size */
   height: 150px;
   overflow: hidden;
   border-radius: 6px;
