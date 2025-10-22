@@ -516,7 +516,7 @@ canvas#bg{
 
 /* Dialogue below codec */
 .codec-text {
-  margin-top: 20px; /* space below codec */
+  margin-top: 10px; /* space below codec */
   width: 80%;
   text-align: center;
   font-family: monospace;
