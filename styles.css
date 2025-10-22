@@ -498,15 +498,15 @@ canvas#bg{
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 150px;   /* 👈 adjust for portrait size */
-  height: 150px;
+  width: 130px;   /* 👈 adjust for portrait size */
+  height: 130px;
   overflow: hidden;
   border-radius: 6px;
   z-index: 2;
 }
 
-.left-portrait { left: 55px; }   /* 👈 move horizontally inside left window */
-.right-portrait { right: 55px; } /* 👈 move horizontally inside right window */
+.left-portrait { left: 65px; }   /* 👈 move horizontally inside left window */
+.right-portrait { right: 65px; } /* 👈 move horizontally inside right window */
 
 .codec-portrait img {
   width: 100%;
