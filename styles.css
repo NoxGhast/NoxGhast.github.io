@@ -529,6 +529,34 @@ canvas#bg{
   z-index: 0;
 }
 
+/* Lock the dialogue area so it doesn’t push content below */
+.codec-container {
+  position: relative;
+  /* optional: you can set a min-height to accommodate the largest possible dialogue */
+  min-height: 220px; /* adjust based on how tall your longest text gets */
+}
+
+.codec-text {
+  /* override: position it absolutely so it sits inside the container without pushing flow */
+  position: absolute;
+  bottom: 16px;        /* distance from bottom of codec container */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;          /* or whatever width you used earlier */
+  max-width: 760px;
+  text-align: center;
+  /* keep your other styling */
+  font-family: monospace;
+  color: #00ff66;
+  font-size: 1.1rem;
+  line-height: 1.4;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 6px;
+  padding: 8px 12px;
+  z-index: 3;
+}
+
+
 /* === Codec Video Styling (for the combined MP4 version) === */
 .codec-video {
   width: 100%;
