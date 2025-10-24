@@ -480,7 +480,7 @@ canvas#bg{
 
 .codec-inner {
   position: relative;
-  width: 700px;  /* 👈 Change this to make the codec PNG bigger (e.g., 800px or 900px) */
+  width: 900px;  /* 👈 Change this to make the codec PNG bigger (e.g., 800px or 900px) */
   max-width: 95vw;
   height: auto;
 }
@@ -540,10 +540,8 @@ canvas#bg{
 }
 
 .codec-text {
-  position: absolute;
-  bottom: 0;               /* anchors text at bottom of padding space */
-  left: 50%;
-  transform: translateX(-50%);
+  position: relative;
+  margin-top: 20px;
   width: 80%;
   max-width: 760px;
   text-align: center;
@@ -551,12 +549,13 @@ canvas#bg{
   color: #00ff66;
   font-size: 1.1rem;
   line-height: 1.4;
-  background: rgba(0, 0, 0, 0.55);
-  border-radius: 6px;
-  padding: 8px 12px;
+  background: none;        /* 👈 remove that semi-opaque background */
+  border: none;            /* 👈 remove any default borders */
+  outline: none;
+  box-shadow: none;        /* 👈 no shadow glow */
   z-index: 3;
-  box-shadow: none;        /* remove any shadows */
 }
+
 
 
 
