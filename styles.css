@@ -589,7 +589,7 @@ canvas#bg{
 
 .codec-text {
   position: absolute;
-  top: calc(100% + 6px); /* Just below the codec panel */
+  top: calc(100% + 1px); /* Just below the codec panel */
   left: 50%;
   transform: translateX(-50%);
   background: rgba(0, 0, 0, 0.6);
