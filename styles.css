@@ -481,7 +481,7 @@ canvas#bg{
 .codec-inner {
   position: relative;
   width: 900px;  /* 👈 Change this to make the codec PNG bigger (e.g., 800px or 900px) */
-  max-width: 95vw;
+  max-width: 98vw;
   height: auto;
 }
 
