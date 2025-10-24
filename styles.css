@@ -530,53 +530,80 @@ canvas#bg{
 }
 
 /* Lock the dialogue area so it doesn’t push content below */
-.codec-container {
+#codec-scene {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 60px 0;
+  text-align: center;
   position: relative;
+}
+
+.codec-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 60px; /* gives breathing room before next section */
-  padding-bottom: 100px; /* ensures text sits below codec panel */
-}
-
-.codec-text {
   position: relative;
-  margin-top: 20px;
-  width: 80%;
-  max-width: 760px;
-  text-align: center;
-  font-family: monospace;
-  color: #00ff66;
-  font-size: 1.1rem;
-  line-height: 1.4;
-  background: none;        /* 👈 remove that semi-opaque background */
-  border: none;            /* 👈 remove any default borders */
-  outline: none;
-  box-shadow: none;        /* 👈 no shadow glow */
-  z-index: 3;
+  margin-bottom: 80px;
+  padding-bottom: 0;
 }
 
+.codec-inner {
+  position: relative;
+  width: 900px;
+  max-width: 98vw;
+  height: auto;
+}
 
+.codec-panel {
+  width: 100%;
+  height: auto;
+  display: block;
+  z-index: 1;
+}
 
-
-/* === Codec Video Styling (for the combined MP4 version) === */
 .codec-video {
   width: 100%;
-  max-width: 640px;       /* keep the video at a nice size */
+  max-width: 900px;
   height: auto;
   display: block;
   margin: 0 auto;
   border-radius: 12px;
-  box-shadow: 0 0 25px rgba(0, 255, 100, 0.25);
+  box-shadow: none;
 }
 
-@media (max-width: 600px) {
-  .codec-video {
-    max-width: 95vw;
-  }
+.codec-portrait {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 130px;
+  height: 130px;
+  overflow: hidden;
+  border-radius: 6px;
+  z-index: 2;
 }
 
-/* Remove any border/glow around the codec scene video */
+.left-portrait { left: 65px; }
+.right-portrait { right: 65px; }
+
+.codec-text {
+  margin-top: 30px;
+  position: relative;
+  background: none;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  z-index: 2;
+  color: #00ff66;
+  font-family: monospace;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  width: 80%;
+  max-width: 760px;
+  text-align: center;
+}
+
 #codec-scene video,
 #codec-scene iframe,
 .codec-inner video {
@@ -585,3 +612,4 @@ canvas#bg{
   outline: none !important;
   background: transparent !important;
 }
+
