@@ -588,7 +588,7 @@ canvas#bg{
 .right-portrait { right: 65px; }
 
 .codec-text {
-  margin-top: 10px;
+  margin-top: 50px;
   position: relative;
   background: none;
   border: none;
