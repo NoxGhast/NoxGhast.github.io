@@ -589,22 +589,25 @@ canvas#bg{
 
 .codec-text {
   position: absolute;
-  top: calc(100% + 0px); /* Just below the codec panel */
+  bottom: -50px; /* adjust to move closer/tighter (try -60px or -40px depending on taste) */
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.6);
-  border-radius: 6px;
-  padding: 8px 12px;
+  
   color: #00ff66;
   font-family: monospace;
-  font-size: 1.1rem;
-  line-height: 1.4;
-  text-align: center;
+  font-size: 1.15rem;
+  line-height: 1.45;
+
   width: 80%;
   max-width: 760px;
-  z-index: 5;
-  margin: 0; /* Remove extra spacing */
+  text-align: center;
+
+  background: none;
+  border: none;
+  padding: 0;
+  pointer-events: none; /* no accidental highlighting */
 }
+
 
 
 #codec-scene video,
