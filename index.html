@@ -65,17 +65,18 @@
     <div class="codec-inner">
 
       <!-- Centered looping video -->
-      <div class="codec-center">
-        <video class="codec-video" autoplay loop muted playsinline>
-          <source src="Video/codec-combined.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
+  <div class="codec-center">
+  <video class="codec-video" autoplay loop muted playsinline>
+    <source src="Video/codec-combined.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
 
-        <!-- Dialogue text below the video -->
-        <div class="codec-text" aria-live="polite">
-          <p id="dialogue" class="dialogue-line"></p>
-        </div>
-      </div>
+  <!-- Dialogue now overlays the video INSIDE the codec UI -->
+  <div class="codec-text">
+    <p id="dialogue" class="dialogue-line"></p>
+  </div>
+</div>
+
 
     </div>
 
