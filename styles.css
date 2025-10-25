@@ -94,13 +94,15 @@ canvas#bg{
 
 /* Lifeline video styling */
 .life-line {
-  height: 100px;         /* adjust size here */
+  height: 30px;        /* adjust size as needed */
   width: auto;
-  opacity: 0.9;
-  filter: drop-shadow(0 0 8px #00ff88);
+  opacity: 1;
   border: none;
-  pointer-events: none; /* prevents clicks interfering */
+  pointer-events: none;
   object-fit: contain;
+  filter: none !important;   /* removes all glow/shadow effects */
+  box-shadow: none !important;
+  background: transparent !important;
 }
 
 .bio{
