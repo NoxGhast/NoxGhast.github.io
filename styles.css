@@ -94,7 +94,7 @@ canvas#bg{
 
 /* Lifeline video styling */
 .life-line {
-  height: 30px;        /* adjust size as needed */
+  height: 100px;        /* adjust size as needed */
   width: auto;
   opacity: 1;
   border: none;
