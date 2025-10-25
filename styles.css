@@ -589,7 +589,7 @@ canvas#bg{
 
 .codec-text {
   position: absolute;
-  bottom: -40px; /* adjust to move closer/tighter (try -60px or -40px depending on taste) */
+  bottom: -10px; /* adjust to move closer/tighter (try -60px or -40px depending on taste) */
   left: 50%;
   transform: translateX(-50%);
   
