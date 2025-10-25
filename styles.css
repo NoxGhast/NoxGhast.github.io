@@ -94,7 +94,7 @@ canvas#bg{
 
 /* Lifeline video styling */
 .life-line {
-  height: 80px;         /* adjust size here */
+  height: 140px;         /* adjust size here */
   width: auto;
   opacity: 0.9;
   filter: drop-shadow(0 0 8px #00ff88);
