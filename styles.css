@@ -85,6 +85,24 @@ canvas#bg{
   100%{ text-shadow: 0 0 6px rgba(0,255,100,0.25), 0 0 12px rgba(0,255,80,0.12); transform:translateY(0); }
 }
 
+.title-row {
+  display: flex;
+  align-items: center;
+  gap: 14px; /* spacing between name & lifeline */
+  justify-content: center; /* keeps it centered like before */
+}
+
+/* Lifeline video styling */
+.life-line {
+  height: 30px;         /* adjust size here */
+  width: auto;
+  opacity: 0.9;
+  filter: drop-shadow(0 0 8px #00ff88);
+  border: none;
+  pointer-events: none; /* prevents clicks interfering */
+  object-fit: contain;
+}
+
 .bio{
   color: #dfffe6;
   max-width:560px;
