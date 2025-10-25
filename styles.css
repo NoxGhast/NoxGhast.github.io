@@ -589,23 +589,23 @@ canvas#bg{
 
 .codec-text {
   position: absolute;
-  bottom: -10px; /* adjust to move closer/tighter (try -60px or -40px depending on taste) */
   left: 50%;
   transform: translateX(-50%);
-  
-  color: #00ff66;
+
+  /* This controls how high the text sits INSIDE the codec */
+  bottom: 64px; /* Tweak this up/down to taste */
+
+  width: 72%;
+  text-align: left;
+  color: #00ff88;
   font-family: monospace;
   font-size: 1.15rem;
   line-height: 1.45;
 
-  width: 80%;
-  max-width: 760px;
-  text-align: center;
-
+  pointer-events: none;
   background: none;
   border: none;
   padding: 0;
-  pointer-events: none; /* no accidental highlighting */
 }
 
 
