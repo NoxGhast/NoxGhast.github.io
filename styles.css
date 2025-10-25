@@ -593,7 +593,7 @@ canvas#bg{
   transform: translateX(-50%);
 
   /* This controls how high the text sits INSIDE the codec */
-  bottom: 64px; /* Tweak this up/down to taste */
+  bottom: 50px; /* Tweak this up/down to taste */
 
   width: 72%;
   text-align: left;
