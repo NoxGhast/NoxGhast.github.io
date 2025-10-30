@@ -711,3 +711,61 @@ canvas#bg{
     .thumb-grid { grid-template-columns: 1fr; }
   }
 }
+
+/* --- MOBILE RESPONSIVE FIXES --- */
+@media (max-width: 700px) {
+
+  body {
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Top container (profile area) */
+  #top-section, .top-section, .main-container {
+    display: flex;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    width: 100% !important;
+    gap: 15px;
+  }
+
+  /* Profile image */
+  #profile-pic, .profile-pic, img.profile {
+    max-width: 60vw !important;
+    height: auto !important;
+    margin: 0 auto;
+    display: block;
+  }
+
+  /* Bio text block */
+  #bio, .bio {
+    width: 90% !important;
+    margin: 0 auto;
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  /* GIF container */
+  #gif-container, .gif-container {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* GIFs */
+  #gif-container img, .gif-container img {
+    max-width: 80vw !important;
+    height: auto !important;
+  }
+
+  /* YouTube button */
+  .youtube-button, #watch, #yt-button {
+    display: inline-block;
+    width: auto !important;
+    padding: 10px 20px !important;
+    font-size: 1.1rem !important;
+  }
+}
