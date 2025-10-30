@@ -639,38 +639,44 @@ canvas#bg{
   background: transparent !important;
 }
 
-/* ===========================
-   MOBILE RESPONSIVE FIXES
-   =========================== */
-@media (max-width: 768px) {
+/* === TRUE MOBILE FIX FOR YOUR LAYOUT === */
+@media (max-width: 700px) {
 
-  /* Center main layout and prevent overflow */
-  .container {
-    padding: 12px;
-    margin: 20px auto;
-  }
-
-  /* Stack hero layout vertically */
+  /* Stack hero section vertically */
   .hero {
-    grid-template-columns: 1fr;
+    display: flex !important;
+    flex-direction: column !important;
     text-align: center;
-    padding: 16px;
+    gap: 20px;
   }
 
-  .left, .right {
-    width: 100%;
-    display: flex;
+  /* Scale profile image properly */
+  .character {
+    max-width: 60vw !important;
+    margin: 0 auto;
+    display: block;
+  }
+
+  /* Keep bio readable + centered */
+  .bio {
+    width: 90% !important;
+    margin: 0 auto;
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  /* Keep all buttons normal sized */
+  .ctas, .extras {
     justify-content: center;
   }
 
-  .character {
-    max-width: 260px;
+  .btn {
+    width: auto !important;
+    padding: 10px 18px !important;
+    font-size: 1rem;
   }
 
-  .title {
-    font-size: 26px;
-  }
-
+  /* Lifeline + name layout fix */
   .title-row {
     flex-direction: column;
     gap: 6px;
@@ -678,94 +684,5 @@ canvas#bg{
 
   .life-line {
     height: 60px;
-  }
-
-  /* === Codec Section Scaling === */
-  .codec-inner {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  .codec-portrait {
-    width: 80px;
-    height: 80px;
-  }
-
-  .left-portrait { left: 32px; }
-  .right-portrait { right: 32px; }
-
-  /* Resize text so it doesn't overlap */
-  .codec-text {
-    width: 82%;
-    font-size: 0.95rem;
-    bottom: 4px;
-    line-height: 1.3;
-  }
-
-  /* Fix games grid */
-  .thumb-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  @media (max-width: 500px) {
-    .thumb-grid { grid-template-columns: 1fr; }
-  }
-}
-
-/* --- MOBILE RESPONSIVE FIXES --- */
-@media (max-width: 700px) {
-
-  body {
-    overflow-x: hidden;
-    margin: 0;
-    padding: 0;
-  }
-
-  /* Top container (profile area) */
-  #top-section, .top-section, .main-container {
-    display: flex;
-    flex-direction: column !important;
-    align-items: center !important;
-    text-align: center !important;
-    width: 100% !important;
-    gap: 15px;
-  }
-
-  /* Profile image */
-  #profile-pic, .profile-pic, img.profile {
-    max-width: 60vw !important;
-    height: auto !important;
-    margin: 0 auto;
-    display: block;
-  }
-
-  /* Bio text block */
-  #bio, .bio {
-    width: 90% !important;
-    margin: 0 auto;
-    font-size: 1rem;
-    text-align: center;
-  }
-
-  /* GIF container */
-  #gif-container, .gif-container {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center;
-    gap: 10px;
-  }
-
-  /* GIFs */
-  #gif-container img, .gif-container img {
-    max-width: 80vw !important;
-    height: auto !important;
-  }
-
-  /* YouTube button */
-  .youtube-button, #watch, #yt-button {
-    display: inline-block;
-    width: auto !important;
-    padding: 10px 20px !important;
-    font-size: 1.1rem !important;
   }
 }
