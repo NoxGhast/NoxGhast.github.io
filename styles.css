@@ -670,3 +670,7 @@ canvas#bg{
     width: 95% !important;
   }
 }
+
+.codec-center {
+  position: relative;
+}
