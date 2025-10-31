@@ -684,3 +684,12 @@ canvas#bg{
     white-space: nowrap;
   }
 }
+
+@media (max-width: 700px) {
+  .codec-text {
+    width: 95% !important;
+    font-size: 1rem !important;
+    text-align: center !important;
+    margin-top: 14px !important;
+  }
+}
