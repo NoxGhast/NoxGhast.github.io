@@ -639,50 +639,45 @@ canvas#bg{
   background: transparent !important;
 }
 
-/* === TRUE MOBILE FIX FOR YOUR LAYOUT === */
+/* FINAL MOBILE FIX — OVERRIDES EVERYTHING */
 @media (max-width: 700px) {
 
-  /* Stack hero section vertically */
   .hero {
     display: flex !important;
     flex-direction: column !important;
-    text-align: center;
-    gap: 20px;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    width: 100% !important;
   }
 
-  /* Scale profile image properly */
   .character {
-    max-width: 60vw !important;
-    margin: 0 auto;
-    display: block;
+    max-width: 65vw !important;
+    margin: 0 auto !important;
   }
 
-  /* Keep bio readable + centered */
-  .bio {
-    width: 90% !important;
-    margin: 0 auto;
-    font-size: 1rem;
-    text-align: center;
-  }
-
-  /* Keep all buttons normal sized */
-  .ctas, .extras {
-    justify-content: center;
-  }
-
-  .btn {
-    width: auto !important;
-    padding: 10px 18px !important;
-    font-size: 1rem;
-  }
-
-  /* Lifeline + name layout fix */
   .title-row {
-    flex-direction: column;
-    gap: 6px;
+    flex-direction: column !important;
+    gap: 8px !important;
   }
 
   .life-line {
-    height: 60px;
+    height: 60px !important;
+  }
+
+  .bio {
+    font-size: 1rem !important;
+    width: 90% !important;
+    margin: 0 auto !important;
+    text-align: center !important;
+  }
+
+  /* Fix stretched YouTube button */
+  .btn {
+    width: auto !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
   }
 }
