@@ -536,7 +536,10 @@ canvas#bg{
 
 /* Dialogue below codec */
 .codec-text {
-  margin-top: 20px;       /* space between codec and text */
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -42px; /* Pushes the text BELOW the codec */
   width: 90%;
   max-width: 800px;
   text-align: center;
@@ -545,11 +548,8 @@ canvas#bg{
   font-size: 1.15rem;
   line-height: 1.45;
   pointer-events: none;
-  background: none;
-  border: none;
-  padding: 8px 0;
-  position: static;       /* <-- this is the key fix */
 }
+
 
 
 /* Lock the dialogue area so it doesn’t push content below */
@@ -665,9 +665,8 @@ canvas#bg{
 
 @media (max-width: 700px) {
   .codec-text {
-    width: 95% !important;
+    bottom: -32px !important;
     font-size: 1rem !important;
-    text-align: center !important;
-    margin-top: 14px !important;
+    width: 95% !important;
   }
 }
